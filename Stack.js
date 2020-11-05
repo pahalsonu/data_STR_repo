@@ -11,7 +11,19 @@ class Stack {
     }
     //pop method, pop from stack and return the popped value
     pop(){
-        return (this.items.length===0 ) ? "stack underflow" :this.items.pop();
+        return (this.items.length===0 )? "stack underflow" :this.items.pop();
+    };
+    peek(){
+        return this.items[this.items.length-1]
+    }
+    length(){
+        return this.items.length;
+    }
+    // traverse the stack and print all the values
+    traverse(){
+        return this.items.forEach(element =>{
+            console.log(element)
+        })
     }
 
 }
@@ -27,12 +39,5 @@ console.log(stack)
 stack.push(62)
 console.log(stack);
 stack.pop()
-console.log(stack);
-stack.pop()
-console.log(stack);
-stack.pop()
-console.log(stack);
-stack.pop()
-console.log(stack);
-stack.pop()
-console.log(stack.pop);
+console.log(stack.peek());
+console.log(stack.traverse());
