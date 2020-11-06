@@ -2,8 +2,6 @@ class Stack {
     constructor(){
         // initialzing empty stack
         this.items = [];
-
-
     }
     //push method , mew element into stack
     push(value){
@@ -25,7 +23,7 @@ class Stack {
             console.log(element)
         })
     }
-
+   
 }
 // Create a stack object (Instantiation)
 const stack = new Stack()
