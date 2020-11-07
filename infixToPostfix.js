@@ -1,10 +1,28 @@
 // var infix = [a,'+','(',b ,'*',c];
-var infix = "a+b*k-j/(f*j)/l+m*b*(v+c-(x*z))"
+var infix = "a+b*k-j/(f^j)/l^m*b^d-(v+c-(x*z))"
 var stack = [];
 var postfix = [];
 
-// function to find braces
 
+// // function to check if if input expression is valid
+// const checkValidInput = () =>{
+    
+//     // convert string to array 
+//     const infixArray = infix.split("")
+   
+//     ////if closing and opening braces are not valid
+//     const openBraces = infixArray.filter(ele => ele == "(").length;
+//     const closingBraces = infixArray.filter(ele => ele == ")").length;
+//     if(openBraces!=closingBraces){
+//         return
+//     }
+//     //if problem start with or end with operator "+a+b" or 'a+b+'
+    
+    
+    
+
+// }
+// checkValidInput()
 const infixToPostfix = () => {
 
     for (i = 0; i < infix.length; i++) {
@@ -75,6 +93,12 @@ const infixToPostfix = () => {
             // + - are solved lets move to * /
             if (infix.charAt(i) == "*" || infix.charAt(i) == "/") {
 
+                //check for associative operators means + or - in this case
+                if (stack[stack.length - 1] == "*" || stack[stack.length - 1] == "/") {
+                    let ele = stack.pop()
+                    postfix.push(ele);
+                    stack.push(infix.charAt(i))
+                };
                 //check if high precdence functions are available
                 if (stack[stack.length - 1] == "^") {
                     let ele = stack.pop();
@@ -92,12 +116,7 @@ const infixToPostfix = () => {
                         stack.push(infix.charAt(i))
                     }
                 }
-                //check for associative operators means + or - in this case
-                if (stack[stack.length - 1] == "*" || stack[stack.length - 1] == "/") {
-                    let ele = stack.pop()
-                    postfix.push(ele);
-                    stack.push(infix.charAt(i))
-                };
+
                 //check if lower precednce operators are persent
                 if (stack[stack.length - 1] == "+" || stack[stack.length - 1] == "-") {
                     stack.push(infix.charAt(i))
@@ -105,6 +124,19 @@ const infixToPostfix = () => {
                 if (stack[stack.length - 1] == "(") {
                     stack.push(infix.charAt(i));
                 };
+            };
+            // + - * / are solved lets move to ^ 
+            if (infix.charAt(i) == "^") {
+
+                //check another ^ is available 
+                if (stack[stack.length - 1] == "^") {
+                    let ele = stack.pop();
+                    postfix.push(ele);
+                    stack.push(infix.charAt(i));
+
+                } else {
+                    stack.push(infix.charAt(i));
+                }
             };
             //if stack is empty
             if (stack.length == 0) {
@@ -117,7 +149,7 @@ const infixToPostfix = () => {
         // console.log(postfix)
         //for loop closed
     }
-   
+
     //handle remaining stacked elements
     for (let i = 0; i <= stack.length; i++) {
         let lastStackElement = stack.pop();
